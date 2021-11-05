@@ -10,19 +10,21 @@ const inputPassword = document.getElementById('password');
 const login = (user) => {
   buttonAuth.style.display = 'none';
 
-  buttonOut.style.display = 'block';
-  userName.style.display = 'block';
+  buttonOut.style.display = 'flex';
+  userName.style.display = 'flex';
 
   userName.textContent = user.login;
   modalAuth.style.display = 'none';
 };
 
 const logout = () => {
-  buttonAuth.style.display = 'block';
+  buttonAuth.style.display = 'flex';
 
   buttonOut.style.display = 'none';
   userName.style.display = 'none';
   userName.textContent = '';
+
+  localStorage.removeItem('user')
 };
 
 buttonAuth.addEventListener('click', () => {
@@ -45,5 +47,10 @@ logInForm.addEventListener('submit', (event) => {
     password: inputPassword.value
   }
 
+  localStorage.setItem('user', JSON.stringify(user))
   login(user);
-})
+});
+
+if (localStorage.getItem('user')) {
+  login(JSON.parse(localStorage.getItem('user')));
+}
