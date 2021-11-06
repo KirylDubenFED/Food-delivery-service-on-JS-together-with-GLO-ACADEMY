@@ -1,8 +1,4 @@
-const restourant = 'food-band';
-
-const renderItems = (data) => {
-    console.log(data);
-}
+const restourant = 'tanuki';
 
 fetch(`./db/${restourant}.json`)
     .then((response) => response.json())

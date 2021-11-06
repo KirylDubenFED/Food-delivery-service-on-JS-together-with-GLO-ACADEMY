@@ -1,5 +1,7 @@
 const renderItems = (data) => {
-    console.log(data);
+   data.forEach(element => {
+       console.log(element);
+   });
 };
 
 fetch('https://test-36783-default-rtdb.firebaseio.com/db/partners.json')
