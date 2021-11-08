@@ -2,36 +2,39 @@ const restourant = 'tanuki';
 const cardsMenu = document.querySelector('.cards-menu')
 
 const renderItems = (data) => {
-    const card = document.createElement('div')
+    data.forEach(({ description, id, image, name, price }) => {
+        const card = document.createElement('div')
 
-    card.classList.add('card')
-    
-    card.innerHTML = `
-        <div class="card-text">
-                <div class="card-heading">
-                    <h3 class="card-title card-title-reg">Пицца Везувий</h3>
+        card.classList.add('card')
+   
+   card.innerHTML = `
+   <img src="${image}" alt="${name}" class="card-image" />
+            <div class="card-text">
+              <div class="card-heading">
+                <h3 class="card-title card-title-reg">${name}</h3>
+              </div>
+              <div class="card-info">
+                <div class="ingredients">${description}
                 </div>
-                <div class="card-info">
-                    <div class="ingredients">Соус томатный, сыр «Моцарелла», ветчина, пепперони, перец
-                    «Халапенье», соус «Тобаско», томаты.
-                    </div>
-                </div>
-                <div class="card-buttons">
-                    <button class="button button-primary button-add-cart">
-                    <span class="button-card-text">В корзину</span>
-                    <span class="button-cart-svg"></span>
-                    </button>
-                    <strong class="card-price-bold">545 ₽</strong>
-                </div>
-                </div>`
+              </div>
+              <div class="card-buttons">
+                <button class="button button-primary button-add-cart">
+                  <span class="button-card-text">В корзину</span>
+                  <span class="button-cart-svg"></span>
+                </button>
+                <strong class="card-price-bold">${price} ₽</strong>
+              </div>
+            </div>`
+    })
 }
 
-fetch(`./db/${restourant}.json`)
-    .then((response) => response.json())
-    .then((data) => {
-        renderItems(data)
-        
-    })
-    .catch((error) => {
-        // console.log(error);
-    })
+    cardsMenu.append(card)
+
+        fetch(`./db/${restourant}.json`)
+            .then((response) => response.json())
+            .then((data) => {
+                renderItems(data)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
