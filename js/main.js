@@ -8,49 +8,49 @@ const inputLogin = document.getElementById('login')
 const inputPassword = document.getElementById('password')
 
 const login = (user) => {
-    buttonAuth.style.display = 'none'
+  buttonAuth.style.display = 'none'
 
-    buttonOut.style.display = 'flex'
-    userName.style.display = 'flex'
+  buttonOut.style.display = 'flex'
+  userName.style.display = 'flex'
 
-    userName.textContent = user.login
-    modalAuth.style.display = 'none'
+  userName.textContent = user.login
+  modalAuth.style.display = 'none'
 }
 
 const logout = () => {
-    buttonAuth.style.display = 'flex'
+  buttonAuth.style.display = 'flex'
 
-    buttonOut.style.display = 'none'
-    userName.style.display = 'none'
-    userName.textContent = ''
+  buttonOut.style.display = 'none'
+  userName.style.display = 'none'
+  userName.textContent = ''
 
-    localStorage.removeItem('user')
+  localStorage.removeItem('user')
 }
 
 buttonAuth.addEventListener('click', () => {
-    modalAuth.style.display = 'flex'
+  modalAuth.style.display = 'flex'
 })
 
 closeAuth.addEventListener('click', () => {
-    modalAuth.style.display = 'none'
+  modalAuth.style.display = 'none'
 })
 
 buttonOut.addEventListener('click', () => {
-    logout()
+  logout()
 })
 
 logInForm.addEventListener('submit', (event) => {
-    event.preventDefault()
+  event.preventDefault()
 
-    const user = {
-        login: inputLogin.value,
-        password: inputPassword.value
-    }
+  const user = {
+    login: inputLogin.value,
+    password: inputPassword.value
+  }
 
-    localStorage.setItem('user', JSON.stringify(user))
-    login(user);
+  localStorage.setItem('user', JSON.stringify(user))
+  login(user);
 })
 
 if (localStorage.getItem('user')) {
-    login(JSON.parse(localStorage.getItem('user')));
+  login(JSON.parse(localStorage.getItem('user')));
 }
