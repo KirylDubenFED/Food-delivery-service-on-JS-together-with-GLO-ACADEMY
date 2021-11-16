@@ -1,7 +1,8 @@
 const cardsRestaurants = document.querySelector('.cards-restaurants')
 
 const renderItems = (data) => {
-  data.forEach(({image, kitchen, name, price, products, stars, time_of_delivery}) => {
+  data.forEach((item) => {
+    const {image, kitchen, name, price, products, stars, time_of_delivery} = item
     const a = document.createElement('a')
 
     a.setAttribute('href', '/restaurant.html')

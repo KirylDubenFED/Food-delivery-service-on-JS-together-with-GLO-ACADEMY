@@ -1,4 +1,4 @@
-const restourant = 'tanuki'
+
 const cardsMenu = document.querySelector('.cards-menu')
 
 const renderItems = (data) => {
@@ -28,12 +28,13 @@ const renderItems = (data) => {
 						</div>
 					</div>
         `
-cardsMenu.append(card)
 
+        cardsMenu.append(card)
   });
 }
 
-fetch(`./db/${restourant}.json`)
+if(localStorage.getItem('restaurant')) {
+  fetch(`./db/${localStorage.getItem('restaurant')}`)
   .then((response) => response.json())
   .then((data) => {
     renderItems(data)
@@ -41,3 +42,7 @@ fetch(`./db/${restourant}.json`)
   .catch((error) => {
     console.log(error);
   })
+} else {
+  window.location.href = '/'
+}
+
