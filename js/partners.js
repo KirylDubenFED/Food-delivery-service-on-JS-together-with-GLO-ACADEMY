@@ -28,9 +28,9 @@ const renderItems = (data) => {
 
     a.addEventListener('click', (e) => {
       e.preventDefault()
-      const link = a.dataset.products
      
-      localStorage.setItem('restaurant', link)
+     
+      localStorage.setItem('restaurant', JSON.stringify(item))
 
       window.location.href = '/restaurant.html'
 
