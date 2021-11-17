@@ -1,19 +1,22 @@
+const menu = () => {
+  const cardsMenu = document.querySelector('.cards-menu')
 
-const cardsMenu = document.querySelector('.cards-menu')
+  const changeTitle = (restaurant) => {
+    const restaurantTitle = document.querySelector('.restaurant-title')
+    restaurantTitle.textContent = restaurant.name
+  }
 
-const changeTitle = (restaurant) => {
-  const restaurantTitle = document.querySelector('.restaurant-title')
+  const addToCart = (cartItem) => {
+    console.log(cartItem);
+  }
 
-  restaurantTitle.textContent = restaurant.name
-}
+  const renderItems = (data) => {
+    data.forEach(({ description, id, image, name, price }) => {
+      const card = document.createElement('div')
 
-const renderItems = (data) => {
-  data.forEach(({ description, id, image, name, price }) => {
-    const card = document.createElement('div')
+      card.classList.add('card')
 
-    card.classList.add('card')
-
-    card.innerHTML = `
+      card.innerHTML = `
         <div class="card">
 						<img src="${image}" alt="${name}" class="card-image" />
 						<div class="card-text">
@@ -35,24 +38,32 @@ const renderItems = (data) => {
 					</div>
         `
 
-    cardsMenu.append(card)
-  });
+      card.querySelector('.button-card-text').addEventListener('click', () => {
+        addToCart({ name, price, count: 1 })
+      })
+
+
+
+      cardsMenu.append(card)
+    });
+  }
+
+  if (localStorage.getItem('restaurant')) {
+    const restaurant = JSON.parse(localStorage.getItem('restaurant'))
+
+    changeTitle(restaurant)
+
+    fetch(`./db/${restaurant.products}`)
+      .then((response) => response.json())
+      .then((data) => {
+        renderItems(data)
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  } else {
+    window.location.href = '/'
+  }
 }
 
-if (localStorage.getItem('restaurant')) {
-  const restaurant = JSON.parse(localStorage.getItem('restaurant'))
-
-  changeTitle(restaurant)
-
-  fetch(`./db/${restaurant.products}`)
-    .then((response) => response.json())
-    .then((data) => {
-      renderItems(data)
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-} else {
-  window.location.href = '/'
-}
-
+menu()
