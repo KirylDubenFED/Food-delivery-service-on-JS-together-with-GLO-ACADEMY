@@ -5,7 +5,11 @@ const cart = () => {
   const body = modalCart.querySelector('.modal-body')
   const buttonSend = modalCart.querySelector('.button-primary')
 
-  console.log(buttonSend);
+  const resetCart = () => {
+    body.innerHTML = ''
+    localStorage.removeItem('cart')
+    modalCart.classList.remove('is-open')
+  }
 
   const incrementCount = (id) => {
     const cartArray = JSON.parse(localStorage.getItem('cart'))
@@ -77,6 +81,14 @@ const cart = () => {
       method: 'POST',
       body: cartArray
     })
+      .then(response => {
+        if (response.ok) {
+          resetCart()
+        }
+      })
+      .catch(e => {
+        console.error(e);
+      })
   })
 
   buttonCart.addEventListener('click', () => {
