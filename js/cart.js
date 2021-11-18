@@ -5,6 +5,8 @@ const cart = () => {
   const body = modalCart.querySelector('.modal-body')
 
   const renderItems = (data) => {
+    body.innerHTML = ''
+
     data.forEach(({ name, price, id, count }) => {
       const cartElem = document.createElement('div')
 
@@ -19,8 +21,10 @@ const cart = () => {
 						<button class="counter-button btn inc">+</button>
 					</div>
       `
+
+      
+
       body.append(cartElem)
-      console.log(body);
     });
   }
 
